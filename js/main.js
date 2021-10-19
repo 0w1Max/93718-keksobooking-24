@@ -3,7 +3,7 @@
 // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 // https://ru.stackoverflow.com/q/1294882
 
-function getRandomNumber (min, max, fix) {
+function getRandomNumber (min, max, fix = 0) {
   const randomNumber = Math.random() * (max - min) + min;
 
   if (min < 0 || min >= max) {
