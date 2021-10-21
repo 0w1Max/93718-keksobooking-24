@@ -51,4 +51,15 @@ getRandomNumber(320, 320, 4);
 // Получаем случайное целое положительное число
 const getRandomInteger = (min, max) => Math.floor(getRandomNumber(min, max));
 
-getRandomInteger(1,1000);
+// Получаем аватарки
+const AVATAR_LIST = [];
+const AVATAR_NUMBER = 10;
+for (let index = 0; index < AVATAR_NUMBER; index++) {
+  if (index < 9) {
+    AVATAR_LIST.push(`img/avatars/user0${index + 1}.png`);
+  } else {
+    AVATAR_LIST.push(`img/avatars/user${index + 1}.png`);
+  }
+}
+const AVATAR = AVATAR_LIST[getRandomInteger(0, AVATAR_LIST.length - 1)];
+AVATAR;
