@@ -51,6 +51,23 @@ getRandomNumber(320, 320, 4);
 // Получаем случайное целое положительное число
 const getRandomInteger = (min, max) => Math.floor(getRandomNumber(min, max));
 
+// Получаем массив случайной длины
+function getRandomArray (array) {
+  const newArray = [];
+  const maxLength = array.length;
+  const arrayLength = getRandomInteger(1, maxLength);
+
+  while (newArray.length < arrayLength) {
+    const indexOfEl = getRandomInteger(0, maxLength - 1);
+    const el = array[indexOfEl];
+
+    if (!newArray.includes(el)) {
+      newArray.push(el);
+    }
+  }
+  return newArray;
+}
+
 // Получаем аватарки
 const AVATAR_LIST = [];
 const AVATAR_NUMBER = 10;
@@ -62,4 +79,81 @@ for (let index = 0; index < AVATAR_NUMBER; index++) {
   }
 }
 const AVATAR = AVATAR_LIST[getRandomInteger(0, AVATAR_LIST.length - 1)];
-AVATAR;
+
+// Заголовок объявления
+const TITLE_LIST = [
+  'Новое объявление',
+  'Новое объявление 2',
+  'Новое объявление 3',
+  'Новое объявление 4',
+  'Новое объявление 5',
+];
+const TITLE = TITLE_LIST[getRandomInteger(0, TITLE_LIST.length - 1)];
+
+// Описание объявления
+const DESCRIPTION_LIST = [
+  'Новое описание',
+  'Новое описание 2',
+  'Новое описание 3',
+  'Новое описание 4',
+  'Новое описание 5',
+];
+const DESCRIPTION = DESCRIPTION_LIST[getRandomInteger(0, DESCRIPTION_LIST.length - 1)];
+
+// Цена
+const PRICE = getRandomInteger(1000, 30000);
+
+// Тип жилья
+const TYPE_LIST = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const TYPE = TYPE_LIST[getRandomInteger(0, TYPE_LIST.length - 1)];
+
+// Количество комнат
+const ROOMS = getRandomInteger(1, 4);
+
+// Количество мест
+const GUESTS = getRandomInteger(0, 3);
+
+// Время заезда и выезда
+const CHECK_TIME = ['12:00', '13:00', '14:00'];
+const CHECKIN = CHECK_TIME[getRandomInteger(0, CHECK_TIME.length - 1)];
+const CHECKOUT = CHECK_TIME[getRandomInteger(0, CHECK_TIME.length - 1)];
+
+// Удобства
+const FEATURES_LIST = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const FEATURES = getRandomArray(FEATURES_LIST);
+
+// Фотографии жилья
+const PHOTOS_LIST = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
+const PHOTOS = getRandomArray(PHOTOS_LIST);
+
+// Координаты
+const LAT = getRandomNumber(35.65000, 35.70000, 5);
+const LNG = getRandomNumber(139.70000, 139.80000, 5);
+const ADDRESS = `${LAT}, ${LNG}`;
+
+const author = {
+  avatar: AVATAR,
+};
+
+const offer = {
+  title: TITLE,
+  address: ADDRESS,
+  price: PRICE,
+  type: TYPE,
+  rooms: ROOMS,
+  guests: GUESTS,
+  checkin: CHECKIN,
+  checkout: CHECKOUT,
+  features: FEATURES,
+  description: DESCRIPTION,
+  photos: PHOTOS,
+  location: {
+    lat: LAT,
+    lng: LNG,
+  },
+};
+
+author;
+offer;
