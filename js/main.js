@@ -68,18 +68,6 @@ function getRandomArray (array) {
   return newArray;
 }
 
-// Получаем аватарки
-const AVATAR_LIST = [];
-const AVATAR_NUMBER = 10;
-for (let index = 0; index < AVATAR_NUMBER; index++) {
-  if (index < 9) {
-    AVATAR_LIST.push(`img/avatars/user0${index + 1}.png`);
-  } else {
-    AVATAR_LIST.push(`img/avatars/user${index + 1}.png`);
-  }
-}
-const AVATAR = AVATAR_LIST[getRandomInteger(0, AVATAR_LIST.length - 1)];
-
 // Заголовок объявления
 const TITLE_LIST = [
   'Новое объявление',
@@ -87,8 +75,12 @@ const TITLE_LIST = [
   'Новое объявление 3',
   'Новое объявление 4',
   'Новое объявление 5',
+  'Новое объявление 6',
+  'Новое объявление 7',
+  'Новое объявление 8',
+  'Новое объявление 9',
+  'Новое объявление 10',
 ];
-const TITLE = TITLE_LIST[getRandomInteger(0, TITLE_LIST.length - 1)];
 
 // Описание объявления
 const DESCRIPTION_LIST = [
@@ -97,63 +89,74 @@ const DESCRIPTION_LIST = [
   'Новое описание 3',
   'Новое описание 4',
   'Новое описание 5',
+  'Новое описание 6',
+  'Новое описание 7',
+  'Новое описание 8',
+  'Новое описание 9',
+  'Новое описание 10',
 ];
-const DESCRIPTION = DESCRIPTION_LIST[getRandomInteger(0, DESCRIPTION_LIST.length - 1)];
-
-// Цена
-const PRICE = getRandomInteger(1000, 30000);
 
 // Тип жилья
 const TYPE_LIST = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
-const TYPE = TYPE_LIST[getRandomInteger(0, TYPE_LIST.length - 1)];
-
-// Количество комнат
-const ROOMS = getRandomInteger(1, 4);
-
-// Количество мест
-const GUESTS = getRandomInteger(0, 3);
 
 // Время заезда и выезда
 const CHECK_TIME = ['12:00', '13:00', '14:00'];
-const CHECKIN = CHECK_TIME[getRandomInteger(0, CHECK_TIME.length - 1)];
-const CHECKOUT = CHECK_TIME[getRandomInteger(0, CHECK_TIME.length - 1)];
 
 // Удобства
 const FEATURES_LIST = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const FEATURES = getRandomArray(FEATURES_LIST);
 
 // Фотографии жилья
 const PHOTOS_LIST = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
-const PHOTOS = getRandomArray(PHOTOS_LIST);
 
-// Координаты
-const LAT = getRandomNumber(35.65000, 35.70000, 5);
-const LNG = getRandomNumber(139.70000, 139.80000, 5);
-const ADDRESS = `${LAT}, ${LNG}`;
 
-const author = {
-  avatar: AVATAR,
-};
+function createObj () {
+  // Получаем аватарки
+  const AVATAR_LIST = [];
+  const AVATAR_NUMBER = 10;
+  for (let index = 0; index < AVATAR_NUMBER; index++) {
+    if (index < 9) {
+      AVATAR_LIST.push(`img/avatars/user0${index + 1}.png`);
+    } else {
+      AVATAR_LIST.push(`img/avatars/user${index + 1}.png`);
+    }
+  }
+  const AVATAR = AVATAR_LIST[getRandomInteger(0, AVATAR_LIST.length - 1)];
 
-const offer = {
-  title: TITLE,
-  address: ADDRESS,
-  price: PRICE,
-  type: TYPE,
-  rooms: ROOMS,
-  guests: GUESTS,
-  checkin: CHECKIN,
-  checkout: CHECKOUT,
-  features: FEATURES,
-  description: DESCRIPTION,
-  photos: PHOTOS,
-  location: {
-    lat: LAT,
-    lng: LNG,
-  },
-};
+  // Координаты
+  const LAT = getRandomNumber(35.65000, 35.70000, 5);
+  const LNG = getRandomNumber(139.70000, 139.80000, 5);
 
-author;
-offer;
+  const objTemplate = {
+    author: {
+      avatar: AVATAR,
+    },
+    offer: {
+      title: TITLE_LIST[getRandomInteger(0, TITLE_LIST.length - 1)],
+      address: `${LAT}, ${LNG}`,
+      price: getRandomInteger(1000, 30000),
+      type: TYPE_LIST[getRandomInteger(0, TYPE_LIST.length - 1)],
+      rooms: getRandomInteger(1, 4),
+      guests: getRandomInteger(0, 3),
+      checkin: CHECK_TIME[getRandomInteger(0, CHECK_TIME.length - 1)],
+      checkout: CHECK_TIME[getRandomInteger(0, CHECK_TIME.length - 1)],
+      features: getRandomArray(FEATURES_LIST),
+      description: DESCRIPTION_LIST[getRandomInteger(0, DESCRIPTION_LIST.length - 1)],
+      photos: getRandomArray(PHOTOS_LIST),
+    },
+    location: {
+      lat: LAT,
+      lng: LNG,
+    },
+  };
+  return objTemplate;
+}
+
+const objects = [];
+
+for (let index = 0; index < 10; index++) {
+  const newObj = createObj();
+  objects.push(newObj);
+}
+
