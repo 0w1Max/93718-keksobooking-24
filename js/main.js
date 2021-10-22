@@ -110,27 +110,29 @@ const PHOTOS_LIST = ['https://assets.htmlacademy.ru/content/intensive/javascript
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 
+// Получаем аватарки
+const AVATAR_LIST = [];
+const AVATAR_NUMBER = 10;
 
-function createObj () {
-  // Получаем аватарки
-  const AVATAR_LIST = [];
-  const AVATAR_NUMBER = 10;
-  for (let index = 0; index < AVATAR_NUMBER; index++) {
-    if (index < 9) {
-      AVATAR_LIST.push(`img/avatars/user0${index + 1}.png`);
-    } else {
-      AVATAR_LIST.push(`img/avatars/user${index + 1}.png`);
-    }
+for (let index = 0; index < AVATAR_NUMBER; index++) {
+  if (index < 9) {
+    AVATAR_LIST.push(`img/avatars/user0${index + 1}.png`);
+  } else {
+    AVATAR_LIST.push(`img/avatars/user${index + 1}.png`);
   }
-  const AVATAR = AVATAR_LIST[getRandomInteger(0, AVATAR_LIST.length - 1)];
+}
+// Индекс аватарки
+let avatarIndex = 0;
 
+// Создаём объект
+function createObj () {
   // Координаты
   const LAT = getRandomNumber(35.65000, 35.70000, 5);
   const LNG = getRandomNumber(139.70000, 139.80000, 5);
 
   const objTemplate = {
     author: {
-      avatar: AVATAR,
+      avatar: AVATAR_LIST[avatarIndex],
     },
     offer: {
       title: TITLE_LIST[getRandomInteger(0, TITLE_LIST.length - 1)],
@@ -155,8 +157,10 @@ function createObj () {
 
 const objects = [];
 
+// Добавляем объект в массив
 for (let index = 0; index < 10; index++) {
   const newObj = createObj();
   objects.push(newObj);
-}
 
+  avatarIndex++;
+}
