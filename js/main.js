@@ -42,12 +42,6 @@ getRandomNumber(320, 320, 4);
 //// lat, число с плавающей точкой — широта, случайное значение от 35.65000 до 35.70000.
 //// lng, число с плавающей точкой — долгота, случайное значение от 139.70000 до 139.80000.
 
-// 1. Добавить цикл, который добавляет аватарки в массив.
-// 2. Объявить данные для объекта offer.
-// 3. Объявить данные для объекта location.
-// 4. Создать объекты author, offter, location с данными.
-
-
 // Получаем случайное целое положительное число
 const getRandomInteger = (min, max) => Math.floor(getRandomNumber(min, max));
 
@@ -110,10 +104,11 @@ const PHOTOS_LIST = ['https://assets.htmlacademy.ru/content/intensive/javascript
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 
-// Получаем аватарки
+// Author avatar
 const AVATAR_LIST = [];
 const AVATAR_NUMBER = 10;
 
+// Генерируем аватарки и добавляем в массив AVATAR_LIST
 for (let index = 0; index < AVATAR_NUMBER; index++) {
   if (index < 9) {
     AVATAR_LIST.push(`img/avatars/user0${index + 1}.png`);
@@ -121,8 +116,6 @@ for (let index = 0; index < AVATAR_NUMBER; index++) {
     AVATAR_LIST.push(`img/avatars/user${index + 1}.png`);
   }
 }
-// Индекс аватарки
-let avatarIndex = 0;
 
 // Создаём объект
 function createObj () {
@@ -132,7 +125,7 @@ function createObj () {
 
   const objTemplate = {
     author: {
-      avatar: AVATAR_LIST[avatarIndex],
+      avatar: '',
     },
     offer: {
       title: TITLE_LIST[getRandomInteger(0, TITLE_LIST.length - 1)],
@@ -157,10 +150,11 @@ function createObj () {
 
 const objects = [];
 
-// Добавляем объект в массив
+// Добавляем объекты в массив
 for (let index = 0; index < 10; index++) {
   const newObj = createObj();
   objects.push(newObj);
 
-  avatarIndex++;
+  // Добавляем аватарки в объект
+  objects[index].author.avatar = AVATAR_LIST[index];
 }
