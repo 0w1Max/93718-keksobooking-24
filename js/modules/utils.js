@@ -1,4 +1,4 @@
-import {AVATAR_LIST, AVATAR_NUMBER} from './initial.js';
+import {AVATAR_LIST, AVATAR_NUMBER} from './data.js';
 
 // Получаем случайное число с плавающей точкой из заданного интервала (min, max)
 function getRandomNumber (min, max, fix = 0) {
