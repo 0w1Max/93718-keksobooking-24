@@ -68,6 +68,31 @@ function addElement (obj) {
         break;
     }
   }
+
+  // Функция, которая добавляет элементы на страницу
+  obj.forEach ((object) => {
+    popup.querySelector('.popup__avatar').src = randomObj.author.avatar;
+    popup.querySelector('.popup__title').textContent = object.offer.title;
+    popup.querySelector('.popup__text--address').textContent = object.offer.address;
+    popup.querySelector('.popup__text--price').textContent = `${object .offer.price} ₽/ночь`;
+    popup.querySelector('.popup__text--capacity').textContent = `${object.offer.rooms} комнаты для
+    ${object.offer.guests} гостей`;
+    popup.querySelector('.popup__text--time').textContent = `Заезд после ${object.offer.checkin},
+    выезд до ${object.offer.checkout}`;
+
+    popup.querySelector('.popup__description').textContent = object.offer.description;
+    // Скрываем блок, если отсутствует описание
+    if (!object.offer.description) {
+      popup.querySelector('.popup__description').style.display = 'none';
+    }
+
+    addTypeItem(object);
+    addFeatures();
+    addPhoto();
+  });
+
+  //Добавляем новую карточку объявления в разметку
+  CONTAINER.appendChild(newCards);
 }
 
 export {addElement};
