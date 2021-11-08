@@ -1,5 +1,6 @@
-import {ARRAY_LENGTH, AVATAR_LIST} from './initial.js';
-import {createObj} from './data.js';
+import {ARRAY_LENGTH, AVATAR_LIST} from './modules/data.js';
+import {createObj} from './modules/initial.js';
+import {addElement} from './modules/generate.js';
 
 const OBJECTS = [];
 
@@ -11,3 +12,7 @@ for (let index = 0; index < ARRAY_LENGTH; index++) {
   // Добавляем аватарки в объект
   OBJECTS[index].author.avatar = AVATAR_LIST[index];
 }
+
+// console.log(OBJECTS);
+
+addElement(OBJECTS);

@@ -1,4 +1,4 @@
-import {TITLE_LIST, DESCRIPTION_LIST, TYPE_LIST, CHECK_TIME, FEATURES_LIST, PHOTOS_LIST} from './initial.js';
+import {TITLE_LIST, DESCRIPTION_LIST, TYPE_LIST, CHECK_TIME, FEATURES_LIST, PHOTOS_LIST} from './data.js';
 import {getRandomNumber, getRandomInteger, getRandomArray} from './utils.js';
 
 // Создаём объект
