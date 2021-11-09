@@ -14,6 +14,8 @@ const MIN_TYPE_PRICE = {
 const titleInput = document.querySelector('#title');
 const priceInput = document.querySelector('#price');
 const typeItems = document.querySelectorAll('#type');
+const roomValues = document.querySelectorAll('#room_number');
+const numberOfGuests = document.querySelector('#capacity');
 
 // Проверяем длину введённого заголовка
 titleInput.addEventListener('input', () => {
@@ -54,4 +56,25 @@ priceInput.addEventListener('input', () => {
   }
 
   priceInput.reportValidity();
+});
+
+// Проверяем соответствие количества комнат и колечества мест
+roomValues.forEach((roomValue) => {
+  numberOfGuests.innerHTML = '<option value="1">для 1 гостя</option>';
+  // В зависимости от выбранного количества комнат, разрешаем определённое число мест
+  roomValue.addEventListener('change', (evt) => {
+    const targetValue = +evt.target.value;
+    if (targetValue === 1) {
+      numberOfGuests.innerHTML = '<option value="1">для 1 гостя</option>';
+    } else if (targetValue === 2) {
+      numberOfGuests.innerHTML = `<option value="2">для 2 гостей</option>
+      <option value="1">для 1 гостя</option>`;
+    } else if (targetValue === 3) {
+      numberOfGuests.innerHTML = `<option value="3" selected>для 3 гостей</option>
+      <option value="2">для 2 гостей</option>
+      <option value="1">для 1 гостя</option>`;
+    } else if (targetValue === 100) {
+      numberOfGuests.innerHTML = '<option value="0">не для гостей</option>';
+    }
+  });
 });
