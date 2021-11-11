@@ -1,9 +1,9 @@
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-const MAX_PRICE_LENGTH = 1000000;
+const MAX_PRICE_HOUSING = 1000000;
 
-const MIN_TYPE_PRICE = {
+const PRICE_VALIDATION = {
   'bungalow': 0,
   'flat': 1000,
   'hotel': 3000,
@@ -14,8 +14,31 @@ const MIN_TYPE_PRICE = {
 const titleInput = document.querySelector('#title');
 const priceInput = document.querySelector('#price');
 const typeItems = document.querySelectorAll('#type');
-const roomValues = document.querySelectorAll('#room_number');
-const numberOfGuests = document.querySelector('#capacity');
+const roomSelect= document.querySelector('#room_number');
+const guestSelect = document.querySelector('#capacity');
+const guestOptions = guestSelect.querySelectorAll('option');
+
+// Выбираем количество мест для одного гостя по-умолчанию
+guestOptions[2].selected = true;
+// Функция, которая определяет число гостей при определённом количестве комнат
+function onSelectChange (evt) {
+  const targetValue = +evt.target.value;
+
+  for (let index = 0; index < guestOptions.length; index++) {
+    guestOptions[index].disabled = true;
+
+    if (targetValue === 100) {
+      guestOptions[3].disabled = false;
+      guestOptions[3].selected = true;
+    } else if (targetValue === guestOptions[index].value || guestOptions[index].value < targetValue) {
+      guestOptions[index - 1].disabled = false;
+      guestOptions[2].selected = true;
+    }
+  }
+}
+
+// Создаём событие при выборе количества комнат
+roomSelect.addEventListener('change', onSelectChange);
 
 // Проверяем длину введённого заголовка
 titleInput.addEventListener('input', () => {
@@ -32,49 +55,35 @@ titleInput.addEventListener('input', () => {
   titleInput.reportValidity();
 });
 
-// Просматриваем коллекцию всех типов жилья
-typeItems.forEach((typeItem) => {
-  // При выборе типа меняем placeholder на минимальную цену у соответствующего типа жилья
-  typeItem.addEventListener('change', (evt) => {
-    priceInput.placeholder = MIN_TYPE_PRICE[evt.target.value];
+// Создаём пееременную для минимальной цены
+let newMinPrice = 0;
 
-    // Создаём атрибут минимальной цены
-    priceInput.setAttribute('min', priceInput.placeholder);
-  });
+// Функция, которая определяет минимальную цену при выборе определённого типа жилья
+function onPriceChange (evt) {
+  const targetValue = evt.target.value;
+  newMinPrice = PRICE_VALIDATION[targetValue];
+  priceInput.placeholder = PRICE_VALIDATION[targetValue];
+
+  // Создаём атрибут минимальной цены
+  priceInput.setAttribute('min', newMinPrice);
+}
+
+// Создаём событие при выборе типа жилья
+typeItems.forEach((typeItem) => {
+  typeItem.addEventListener('change', onPriceChange);
 });
 
 // Проверяем введённую цену за ночь
 priceInput.addEventListener('input', () => {
   const inputNumber = priceInput.value;
 
-  if (inputNumber < +priceInput.placeholder) {
-    priceInput.setCustomValidity('Слишком низкая цена для этого типа жилья!');
-  } else if (inputNumber > MAX_PRICE_LENGTH) {
-    priceInput.setCustomValidity('Слишком высокая цена для этого типа жилья!');
+  if (inputNumber < newMinPrice) {
+    priceInput.setCustomValidity(`Минимальная цена для этого типа жилья: ${newMinPrice}`);
+  } else if (inputNumber > MAX_PRICE_HOUSING) {
+    priceInput.setCustomValidity(`Слишком высокая цена! Максимальная цена: ${MAX_PRICE_HOUSING}`);
   } else {
     priceInput.setCustomValidity('');
   }
 
   priceInput.reportValidity();
-});
-
-// Проверяем соответствие количества комнат и колечества мест
-roomValues.forEach((roomValue) => {
-  numberOfGuests.innerHTML = '<option value="1">для 1 гостя</option>';
-  // В зависимости от выбранного количества комнат, разрешаем определённое число мест
-  roomValue.addEventListener('change', (evt) => {
-    const targetValue = +evt.target.value;
-    if (targetValue === 1) {
-      numberOfGuests.innerHTML = '<option value="1">для 1 гостя</option>';
-    } else if (targetValue === 2) {
-      numberOfGuests.innerHTML = `<option value="2">для 2 гостей</option>
-      <option value="1">для 1 гостя</option>`;
-    } else if (targetValue === 3) {
-      numberOfGuests.innerHTML = `<option value="3" selected>для 3 гостей</option>
-      <option value="2">для 2 гостей</option>
-      <option value="1">для 1 гостя</option>`;
-    } else if (targetValue === 100) {
-      numberOfGuests.innerHTML = '<option value="0">не для гостей</option>';
-    }
-  });
 });
